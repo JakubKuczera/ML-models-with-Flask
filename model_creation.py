@@ -69,10 +69,10 @@ print(f'Best nr of neurons: {best.get("neurons")}, Best value for dropout: {best
 NN = tuner.hypermodel.build(best) # and builidng our model with them
 NN.summary()
 
-history = NN.fit(X_train.values, y_train_nn, epochs=5, validation_data = (X_test.values,y_test_nn))
+history = NN.fit(X_train.values, y_train_nn, epochs=5, validation_data = (X_test.values,y_test_nn)) #fitting the model
 
 y_rfc = RFC.predict(X_test.values)
-y_knn = KNN.predict(X_test.values)
+y_knn = KNN.predict(X_test.values)   #making prediction for all models
 y_nn = list(np.argmax(NN.predict(X_test), axis=-1))
 y_hm = (list(map(heuristic_model,data['Elevation'], data['Aspect'])))
 
@@ -87,7 +87,7 @@ print(f'Metrics for RFC model: Balanced Accuracy {bal_acc[0]}, Precision {pr[0]}
 print(f'Metrics for KNN model: Balanced Accuracy {bal_acc[1]}, Precision {pr[1]}, Recall {re[1]}')
 print(f'Metrics for NN model: Balanced Accuracy {bal_acc[2]}, Precision {pr[2]}, Recall {re[2]}')
 print(f'Metrics for Heuristic model: Balanced Accuracy {bal_acc[3]}, Precision {pr[3]}, Recall {re[3]}')
-
+#saving models 
 import pickle
 pickle.dump(RFC, open('saved_models/RFC_model.pkl', 'wb'))
 pickle.dump(KNN, open('saved_models/KNN_model.pkl', 'wb'))
